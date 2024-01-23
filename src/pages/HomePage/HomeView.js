@@ -10,6 +10,8 @@ import {
   Paper,
 } from '@mui/material'
 
+import { login } from '../../services/User'
+
 import Password from '../../components/password'
 
 const LoginForm = () => {
@@ -21,8 +23,20 @@ const LoginForm = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
 
   const handleLogin = () => {
-    // Lógica de autenticação para o login
     console.log(`Login - Usuário: ${loginUsername}, Senha: ${loginPassword}`)
+
+    login({
+      username: loginUsername,
+      password: loginPassword,
+    })
+      .then((response) => {
+        console.warn('sucesso')
+        console.warn('response', response)
+      })
+      .catch((response) => {
+        console.warn('falha')
+        console.warn('response', response)
+      })
   }
 
   const handleSignup = () => {
