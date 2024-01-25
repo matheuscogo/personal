@@ -2,17 +2,13 @@ import { post } from '../index'
 
 const login = async (user) => {
   try {
-    const customConfig = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-
-    const body = await post('users/auth/login', customConfig, user)
+    const body = await post('users/auth/login', user)
 
     if (!body.success) {
       throw body.message
     }
+
+    localStorage.setItem('token', body.response)
 
     return body
   } catch (e) {
@@ -26,12 +22,7 @@ const login = async (user) => {
 
 const signUp = async (user) => {
   try {
-    const customConfig = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-    const body = await post('users/sign-up', customConfig, user)
+    const body = await post('users/sign-up', user)
 
     if (!body.success) {
       throw body.message

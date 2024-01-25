@@ -22,21 +22,11 @@ const LoginForm = () => {
   const [signupPassword, setSignupPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
 
-  const handleLogin = () => {
-    console.log(`Login - Usuário: ${loginUsername}, Senha: ${loginPassword}`)
-
-    login({
+  const handleLogin = async () => {
+    const body = await login({
       username: loginUsername,
       password: loginPassword,
     })
-      .then((response) => {
-        console.warn('sucesso')
-        console.warn('response', response)
-      })
-      .catch((response) => {
-        console.warn('falha')
-        console.warn('response', response)
-      })
   }
 
   const handleSignup = () => {

@@ -6,12 +6,8 @@ const Password = (props) => {
   const [showPassword, setShowPassword] = useState(false)
 
   const handleTogglePasswordVisibility = () => {
-    console.warn('entrei do toogle')
-    console.warn('showPassword', showPassword)
     setShowPassword(!showPassword)
   }
-
-  console.warn('showPassword', showPassword)
 
   const { id, name, label } = props
 

@@ -29,7 +29,6 @@ const Header = (props) => {
           alignItems="center"
         >
           {map(linkRoute, (value, key) => {
-            console.warn('value', value)
             return (
               <Grid item>
                 <LinkRoute to={value.to}>value.name</LinkRoute>
