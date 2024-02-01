@@ -1,33 +1,38 @@
 import { makeObservable, observable, action } from 'mobx'
 import { mapValues, cloneDeep } from 'lodash'
-import { isFunction, map, isEmpty, isNumber } from 'lodash'
+import { isFunction, isEmpty, get, set } from 'lodash'
 
 class FormStore {
   constructor({ endpoint, initialData }) {
-    this.init = this.init.bind(this)
-    this.fetchData = this.fetchData.bind(this)
-    this.setForm = this.setForm.bind(this)
+    this.setInitialStates = this.setInitialStates.bind(this)
+    this.submit = this.submit.bind(this)
 
     this.endpoint = endpoint
-
-    Promise.all([this.init(initialData)])
+    this.services = {}
+    this.formStates = {}
+    this.datagrid = {
+       columns: [],
+       rows: [],
+    }
+    this.loading = false
+    this.id = null
 
     makeObservable(this, {
-      init: action,
+      // init: action,
       setInitialStates: action,
+      submit: action,
+      getFormData: observable,
       services: observable,
       loading: observable,
       id: observable,
+      formStates: observable,
     })
+
+    this.init(initialData)
   }
 
-  services = {}
-  initialData = {}
-  id = null
-  endpoint = () => {}
-
-  async init(initialData) {
-    Promise.all([this.setForm(initialData)])
+  init(initialData) {
+    this.setInitialStates(initialData)
   }
 
   setInitialStates = (initialData = {}) => {
@@ -36,62 +41,52 @@ class FormStore {
     const states = mapValues(initialData, (state) => {
       return state
     })
+
     this.formStates = cloneDeep(states)
-  }
-
-  setColumns = async (initialData) => {
-    if (!isEmpty(initialData)) {
-      this.datagrid.columns = map(initialData, (value, key) => {
-        return {
-          field: value.field,
-          headerName: value.headerName,
-          editable: isEmpty(value.editable) ? false : true,
-          width: isNumber(value.width) ? value.width : 150,
-          renderCell: isFunction(value.renderCell) ? value.renderCell : null,
-          hide: value.hide,
-          value: value.value,
-        }
-      })
-    }
-  }
-
-  setDatagrid = async (initialData) => {
-    if (isEmpty(this.datagrid.columns)) {
-      Promise.all([this.setColumns(initialData)])
-
-      if (!isEmpty(this.datagrid.columns)) {
-        this.loading = false
-        // Promise.all([this.fetchData()])
-      }
-    }
+    this.getFormData = cloneDeep(states)
   }
 
   fetchData = async () => {
     if (isFunction(this.endpoint)) {
       if (isEmpty(this.datagrid.rows)) {
         this.loading = true
-        this.endpoint()
-          .then((response) => {
-            this.datagrid.rows = response
-            this.loading = false
-          })
-          .catch((e) => {
-            throw e
-          })
-          .finally(() => {
-            this.loading = false
-          })
+        try {
+          const response = await this.endpoint()
+          this.datagrid.rows = response
+        } catch (e) {
+          throw e
+        } finally {
+          this.loading = false
+        }
       }
     }
   }
 
-  treatRowAction = async () => {}
-
-  refreshData = async () => {
-    if (isFunction(this.endpoint)) {
-      const response = await this.endpoint()
-      this.datagrid.rows = response
+  submit = async () => {
+    console.warn('this.services', this.services)
+    await this.services.post({username:'matheus', password: '123'})
+    if (this.validateForm()) {
+      try {
+        // Lógica para salvar os dados no servidor
+        // Aguarde a conclusão da operação
+      } catch (error) {
+        console.error('Erro ao salvar dados:', error)
+      }
     }
+  }
+
+  validateForm = () => {
+    // Implemente a lógica de validação aqui
+    // Retorne true se válido, false se inválido
+    return true
+  }
+
+  getFormData = () => {
+    return this.formStates
+  }
+
+  changeState = (name, value) => {
+    set(get(this.getFormData, name), 'value', value)
   }
 }
 

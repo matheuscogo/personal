@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   TextField,
   Button,
@@ -10,44 +10,61 @@ import {
   Paper,
 } from '@mui/material'
 import { observer, inject } from 'mobx-react'
+import  { provider } from '../../components/store/provider'
 
-import { login } from '../../services/User'
 
-import formLoginStorefrom from './store/formLoginStore'
+import formLoginStore from './store/formLoginStore'
 import formSignUpStore from './store/formSignUpStore'
 
 import Password from '../../components/password'
 
-const LoginForm = () =>
-  inject(
-    'formLoginStore',
-    'formSignUpStore'
-  )(
-    observer((props) => {
-      console.warn('props', props)
+const LoginForm = inject('formLoginStore', 'formSignUpStore')(observer((props) => {
 
-      const [loginUsername, setLoginUsername] = useState('')
-      const [loginPassword, setLoginPassword] = useState('')
-      const [signupName, setSignupName] = useState('')
-      const [signupEmail, setSignupEmail] = useState('')
-      const [signupPassword, setSignupPassword] = useState('')
-      const [confirmPassword, setConfirmPassword] = useState('')
+  const { formLoginStore } = props
+  const { getFormData: getLoginFormData  } = formLoginStore
+  const { username, password } = getLoginFormData  
+  
+  const { formSignUpStore } = props
+  const { getFormData: getSignUpFormData } = formLoginStore
+  const { 
+    name, 
+    email,
+    password: signPassword,
+    confirmPassword 
+} = getSignUpFormData
 
-      const handleLogin = async () => {
-        const body = await login({
-          username: loginUsername,
-          password: loginPassword,
-        })
-      }
+  useEffect(() => {}, []);
 
-      const handleSignup = () => {
-        // Lógica de cadastro de usuário
-        console.log(
-          `Cadastro - Nome: ${signupName}, Email: ${signupEmail}, Senha: ${signupPassword}`
-        )
-      }
+  const onChange = (name, value) =>{
+    const { changeState: changeStateLogin } = formLoginStore
+    const { changeState: changeStateSignUp } = formSignUpStore
 
-      return (
+    // Login
+    if(name === 'username'){
+      changeStateLogin(name, value)
+    }    
+    
+    if(name === 'password'){
+      changeStateLogin(name, value)
+    }
+
+    // SignUp
+    if (name === 'email'){
+      changeStateSignUp(name, value)
+    }
+  }
+
+  const login = () => {
+    const { submit } = formLoginStore
+
+    try {
+      submit()
+    } catch (error) {
+      console.error('teste')
+    }
+  }
+  
+  return (
         <Container>
           <Grid
             container
@@ -66,22 +83,24 @@ const LoginForm = () =>
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
-                        label="Usuário"
+                        name='username'
+                        label= { username.label }
                         variant="outlined"
                         fullWidth
                         size="small"
-                        value={loginUsername}
-                        onChange={(e) => setLoginUsername(e.target.value)}
+                        value={ username.value }
+                        onChange={ (e) => onChange(e.target.name, e.target.value) }
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <Password
-                        label="Senha"
+                        name='password'
+                        label={password.label}
                         variant="outlined"
                         fullWidth
                         size="small"
-                        value={loginPassword}
-                        onChange={(e) => setLoginPassword(e.target.value)}
+                        value={password.value}
+                        onChange={ (e) => onChange(e.target.name, e.target.value) }
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -89,7 +108,7 @@ const LoginForm = () =>
                         variant="contained"
                         color="primary"
                         fullWidth
-                        onClick={handleLogin}
+                        onClick={ login }
                       >
                         Entrar
                       </Button>
@@ -107,18 +126,20 @@ const LoginForm = () =>
                         variant="outlined"
                         fullWidth
                         size="small"
-                        value={signupName}
-                        onChange={(e) => setSignupName(e.target.value)}
+                        // value={signupName}
+                        // onChange={(e) => setSignupName(e.target.value)}
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
+                        id='email'
+                        name='email'
                         label="Email"
                         variant="outlined"
                         fullWidth
                         size="small"
-                        value={signupEmail}
-                        onChange={(e) => setSignupEmail(e.target.value)}
+                        // value={signupEmail}
+                        // onChange={(e) => setSignupEmail(e.target.value)}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -127,8 +148,8 @@ const LoginForm = () =>
                         variant="outlined"
                         fullWidth
                         size="small"
-                        value={signupPassword}
-                        onChange={(e) => setSignupPassword(e.target.value)}
+                        // value={signupPassword}
+                        // onChange={(e) => setSignupPassword(e.target.value)}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -137,8 +158,8 @@ const LoginForm = () =>
                         variant="outlined"
                         fullWidth
                         size="small"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        // value={confirmPassword}
+                        // onChange={(e) => setConfirmPassword(e.target.value)}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -146,7 +167,7 @@ const LoginForm = () =>
                         variant="contained"
                         color="primary"
                         fullWidth
-                        onClick={handleSignup}
+                        // onClick={handleSignup}
                       >
                         Cadastrar
                       </Button>
@@ -185,6 +206,6 @@ const LoginForm = () =>
         </Container>
       )
     })
-  )
-
-export default LoginForm
+)
+  // export default LoginForm
+  export default provider({formLoginStore, formSignUpStore})(LoginForm)

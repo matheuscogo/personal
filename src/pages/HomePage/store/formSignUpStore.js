@@ -1,6 +1,6 @@
 import FormStore from '../../../components/form/store/FormStore'
 
-export default class FormSignUpStore extends FormStore {
+class FormSignUpStore extends FormStore {
   constructor() {
     super({
       initialData: {
@@ -20,3 +20,5 @@ export default class FormSignUpStore extends FormStore {
     })
   }
 }
+
+export default new FormSignUpStore
