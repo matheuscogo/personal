@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import {
   TextField,
   Button,
@@ -25,37 +25,56 @@ const LoginForm = inject('formLoginStore', 'formSignUpStore')(observer((props) =
   const { username, password } = getLoginFormData  
   
   const { formSignUpStore } = props
-  const { getFormData: getSignUpFormData } = formLoginStore
+  const { getFormData: getSignUpFormData } = formSignUpStore
   const { 
     name, 
     email,
-    password: signPassword,
+    signPassword,
     confirmPassword 
-} = getSignUpFormData
+  } = getSignUpFormData
 
   useEffect(() => {}, []);
 
   const onChange = (name, value) =>{
-    const { changeState: changeStateLogin } = formLoginStore
-    const { changeState: changeStateSignUp } = formSignUpStore
+    const { changeData: changeDataLogin } = formLoginStore
+    const { changeData: changeDataSignUp } = formSignUpStore
 
     // Login
     if(name === 'username'){
-      changeStateLogin(name, value)
+      changeDataLogin(name, value)
     }    
     
     if(name === 'password'){
-      changeStateLogin(name, value)
+      changeDataLogin(name, value)
     }
 
     // SignUp
+    if (name === 'name'){
+      changeDataSignUp(name, value)
+    }    
     if (name === 'email'){
-      changeStateSignUp(name, value)
+      changeDataSignUp(name, value)
+    }    
+    if (name === 'signPassword'){
+      changeDataSignUp(name, value)
+    }    
+    if (name === 'confirmPassword'){
+      changeDataSignUp(name, value)
     }
   }
 
   const login = () => {
     const { submit } = formLoginStore
+
+    try {
+      submit()
+    } catch (error) {
+      console.error('teste')
+    }
+  }
+
+  const signUp = () => {
+    const { submit } = formSignUpStore
 
     try {
       submit()
@@ -84,23 +103,28 @@ const LoginForm = inject('formLoginStore', 'formSignUpStore')(observer((props) =
                     <Grid item xs={12}>
                       <TextField
                         name='username'
+                        error={ username.error }
                         label= { username.label }
+                        required= { username.required }
+                        value={ username.value }
+                        onChange={ (e) => onChange(e.target.name, e.target.value) }
                         variant="outlined"
                         fullWidth
                         size="small"
-                        value={ username.value }
-                        onChange={ (e) => onChange(e.target.name, e.target.value) }
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <Password
                         name='password'
+                        error={ password.error }
+                        helperText={ password.helperText }
                         label={password.label}
+                        required={ password.required }
+                        value={password.value}
+                        onChange={ (e) => onChange(e.target.name, e.target.value) }
                         variant="outlined"
                         fullWidth
                         size="small"
-                        value={password.value}
-                        onChange={ (e) => onChange(e.target.name, e.target.value) }
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -122,44 +146,60 @@ const LoginForm = inject('formLoginStore', 'formSignUpStore')(observer((props) =
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
-                        label="Nome"
+                        name="name"
+                        error={ name.error }
+                        label={ name.label }
+                        required={ name.required }
+                        value={ name.value }
+                        onChange={ (e) => onChange(e.target.name, e.target.value) }
                         variant="outlined"
                         fullWidth
                         size="small"
-                        // value={signupName}
-                        // onChange={(e) => setSignupName(e.target.value)}
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
-                        id='email'
                         name='email'
-                        label="Email"
+                        error={ email.error }
+                        helperText={ email.helperText }
+                        label={ email.label }
+                        required={ email.required }
+                        value={ email.value }
+                        inputProps={{ maxLength: email.maxLength }}
+                        onChange={ (e) => onChange(e.target.name, e.target.value) }
                         variant="outlined"
                         fullWidth
                         size="small"
-                        // value={signupEmail}
-                        // onChange={(e) => setSignupEmail(e.target.value)}
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <Password
-                        label="Senha"
+                        name="signPassword"
+                        error={signPassword.error}
+                        label={signPassword.label}
+                        helperText={ signPassword.helperText }
+                        required={signPassword.required}
+                        value={signPassword.value}
+                        onChange={ (e) => onChange(e.target.name, e.target.value) }
+                        inputProps={{ minLength: signPassword.minLength }}
                         variant="outlined"
                         fullWidth
                         size="small"
-                        // value={signupPassword}
-                        // onChange={(e) => setSignupPassword(e.target.value)}
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <Password
-                        label="Confirmação de Senha"
+                        name="confirmPassword"
+                        error={confirmPassword.error}
+                        label={confirmPassword.label}
+                        helperText={ confirmPassword.helperText }
+                        required={confirmPassword.required}
+                        value={confirmPassword.value}
+                        onChange={ (e) => onChange(e.target.name, e.target.value) }
+                        inputProps={{ minLength: confirmPassword.minLength }}
                         variant="outlined"
                         fullWidth
                         size="small"
-                        // value={confirmPassword}
-                        // onChange={(e) => setConfirmPassword(e.target.value)}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -167,7 +207,7 @@ const LoginForm = inject('formLoginStore', 'formSignUpStore')(observer((props) =
                         variant="contained"
                         color="primary"
                         fullWidth
-                        // onClick={handleSignup}
+                        onClick={ signUp }
                       >
                         Cadastrar
                       </Button>

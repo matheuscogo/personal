@@ -7,10 +7,13 @@ class FormLoginStore extends FormStore {
         username: {
           label: 'Usuário',
           value: '',
+          required: true,
         },
         password: {
           label: 'Senha',
           value: '',
+          required: true,
+          minLength: 8,
         },
       },
     })

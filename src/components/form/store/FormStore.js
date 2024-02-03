@@ -18,7 +18,6 @@ class FormStore {
     this.id = null
 
     makeObservable(this, {
-      // init: action,
       setInitialStates: action,
       submit: action,
       getFormData: observable,
@@ -63,8 +62,6 @@ class FormStore {
   }
 
   submit = async () => {
-    console.warn('this.services', this.services)
-    await this.services.post({username:'matheus', password: '123'})
     if (this.validateForm()) {
       try {
         // Lógica para salvar os dados no servidor
@@ -76,8 +73,44 @@ class FormStore {
   }
 
   validateForm = () => {
-    // Implemente a lógica de validação aqui
-    // Retorne true se válido, false se inválido
+    mapValues(this.getFormData, (value, key) =>{
+      // rules for required
+      if(value.required && isEmpty(value.value)) {
+        set(get(this.getFormData, key), 'error', true)
+        return false
+      }
+      
+      // rules for email
+      if(value.email && !isEmpty(value.value)) {
+        // Validamos a quantidade de caracteres maxima
+        const maxEmailLength = value.value.length <= value.maxLength
+        if(maxEmailLength){
+          set(get(this.getFormData, key), 'helperText', "O e-mail é muito longo. Por favor, mantenha-o abaixo de " + value.maxLength + " caracteres.")
+          return false
+        }
+        
+        // Validamos se é um email valido
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        if(!emailRegex.test(value.value)){
+          set(get(this.getFormData, key), 'helperText', "O e-mail invalido.")
+          set(get(this.getFormData, key), 'error', true)
+          return false
+        }
+      }
+
+      // Rules for password
+      if(value.password && !isEmpty(value.value)){
+        // Validamos sa quantidade de caracteres minima
+        const minPasswordLength = value.value.length >= value.minLength
+        if(!minPasswordLength){
+          set(get(this.getFormData, key), 'helperText', "A senha deve ter no mínimo " + value.minLength + " caracteres.")
+          set(get(this.getFormData, key), 'error', true)
+          return false
+        }
+
+      }
+    })
+
     return true
   }
 
@@ -85,7 +118,12 @@ class FormStore {
     return this.formStates
   }
 
-  changeState = (name, value) => {
+  changeData = (name, value) => {
+    if(get(get(this.getFormData, name), 'error')){
+      set(get(this.getFormData, name), 'error', false)
+      set(get(this.getFormData, name), 'helperText', '')
+    }
+
     set(get(this.getFormData, name), 'value', value)
   }
 }
