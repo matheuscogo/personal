@@ -1,4 +1,4 @@
-import { post } from '../index'
+import { post, setAuthorizationToken } from '../index'
 
 const login = async (user) => {
   try {
@@ -8,7 +8,12 @@ const login = async (user) => {
       throw body.message
     }
 
+
+    // Salve o token no localStorage para persistência
     localStorage.setItem('token', body.response)
+
+    // Configure o token na instância do Axios
+    setAuthorizationToken(body.response)
 
     return body
   } catch (e) {
