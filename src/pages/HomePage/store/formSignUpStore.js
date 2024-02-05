@@ -5,8 +5,8 @@ class FormSignUpStore extends FormStore {
   constructor() {
     super({
       initialData: {
-        name: {
-          label: 'Nome',
+        username: {
+          label: 'Nome de usuário',
           value: '',
           required: true
         },
@@ -17,7 +17,7 @@ class FormSignUpStore extends FormStore {
           email: true,
           maxLength: 100,
         },
-        signPassword: {
+        password: {
           label: 'Senha',
           value: '',
           required: true,
@@ -35,7 +35,7 @@ class FormSignUpStore extends FormStore {
     })
 
     this.services = {
-      create: signUp
+      post: signUp
     }
   }
 }

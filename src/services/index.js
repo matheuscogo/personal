@@ -1,12 +1,10 @@
 import axios from 'axios'
 
-const token = localStorage.getItem('token')
 const apiUrl = process.env.REACT_APP_API_URL
 
 const instance = axios.create({
   headers: {
     'Content-Type': 'application/json',
-    Authorization: token,
   },
   baseURL: apiUrl,
 })
@@ -79,4 +77,12 @@ const del = async (endpoint, body) => {
   }
 }
 
-export { get, post, put, del }
+const setAuthorizationToken = (token) => {
+  if (token) {
+    instance.defaults.headers.common['Authorization'] = `Bearer ${token}`
+  } else {
+    delete instance.defaults.headers.common['Authorization']
+  }
+}
+
+export { get, post, put, del, setAuthorizationToken }
