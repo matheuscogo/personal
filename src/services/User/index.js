@@ -1,4 +1,5 @@
 import { post, setAuthorizationToken } from '../index'
+import { jwtDecode } from "jwt-decode";
 
 const login = async (user) => {
   try {
@@ -11,8 +12,12 @@ const login = async (user) => {
       throw body.message
     }
 
-    // Salve o token no localStorage para persistência
+    // Consulta o ID do usuário no JWT
+    const { userId }  = jwtDecode(body.response)
+
+    // Salve os dados no localStorage para persistência
     localStorage.setItem('token', body.response)
+    localStorage.setItem('userId', userId)
 
     // Configure o token na instância do Axios
     setAuthorizationToken(body.response)
