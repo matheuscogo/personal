@@ -8,15 +8,12 @@ class FormStore {
     this.setAsPut = this.setAsPut.bind(this)
     this.setInitialStates = this.setInitialStates.bind(this)
     this.submit = this.submit.bind(this)
+    this.fetchFormData = this.fetchFormData.bind(this)
 
     this.services = {}
     this.create = true
     this.update = false
     this.formStates = {}
-    this.datagrid = {
-      columns: [],
-      rows: [],
-    }
     this.loading = false
     this.id = null
 
@@ -26,12 +23,10 @@ class FormStore {
       setAsPost: action,
       setAsPut: action,
       getFormData: observable,
-      services: observable,
       loading: observable,
-      id: observable,
       formStates: observable,
     })
-
+    
     this.init(initialData)
   }
 
@@ -42,9 +37,8 @@ class FormStore {
   setInitialStates = (initialData = {}) => {
     initialData = mapValues(initialData, (state) => state)
 
-    const states = mapValues(initialData, (state) => {
-      return state
-    })
+    const states = mapValues(initialData, (state) => { return state })
+
 
     this.formStates = cloneDeep(states)
     this.getFormData = cloneDeep(states)
@@ -143,6 +137,17 @@ class FormStore {
   setAsPost = () => {
     this.put = false
     this.post = true
+  }
+
+  fetchFormData = async () => {
+    const id = localStorage.getItem('userId')
+    if (isFunction(this.services.get) && !isEmpty(id)) {
+        const { response } = await this.services.get(id)
+        console.warn('response', response)
+        mapValues(response, (value, key) => {
+          this.changeData(key, value)
+        })
+    }
   }
 
   changeData = (name, value) => {
