@@ -63,7 +63,19 @@ class FormStore {
 
   submit = async () => {
     if (this.validateForm()) {
+
+    const object =  mapValues(this.getFormData, (value) => {
+      return get(value, 'value')
+    })
+
       try {
+        if(isFunction(this.services.post)){
+          await this.services.post(object)
+        }
+        
+        if(isFunction(this.services.put)){
+          await this.services.put(object)
+        }
         // Lógica para salvar os dados no servidor
         // Aguarde a conclusão da operação
       } catch (error) {
