@@ -2,12 +2,14 @@ import { post, setAuthorizationToken } from '../index'
 
 const login = async (user) => {
   try {
+    // Se o login está sendo feito dnv, devemos limpar o login anterior
+    setAuthorizationToken()
+
     const body = await post('users/auth/login', user)
 
     if (!body.success) {
       throw body.message
     }
-
 
     // Salve o token no localStorage para persistência
     localStorage.setItem('token', body.response)
@@ -27,6 +29,10 @@ const login = async (user) => {
 
 const signUp = async (user) => {
   try {
+    // Se o cadastro está sendo feito, devemos 
+    // limpar o login, pois o usuário não existe ainda
+    setAuthorizationToken()
+
     const body = await post('users/sign-up', user)
 
     if (!body.success) {
