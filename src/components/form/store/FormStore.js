@@ -143,7 +143,6 @@ class FormStore {
     const id = localStorage.getItem('userId')
     if (isFunction(this.services.get) && !isEmpty(id)) {
         const { response } = await this.services.get(id)
-        console.warn('response', response)
         mapValues(response, (value, key) => {
           this.changeData(key, value)
         })
