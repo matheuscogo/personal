@@ -47,7 +47,7 @@ const ProfileForm = inject(
       <Grid container spacing={3} direction="column" alignItems="center">
       {/* Foto do perfil à esquerda */}
       <Grid item>
-        <Avatar alt="User Avatar" src="https://conteudo.imguol.com.br/c/entretenimento/f1/2021/03/03/kleber-bambam-diz-que-ja-ficou-com-11-ex-bbbs-1614808930731_v2_450x600.jpg" sx={{ width: 150, height: 150 }} />
+        <Avatar alt="User Avatar" src="#"/>
       </Grid>
 
       {/* Cards com informações do usuário e métricas do corpo à direita */}
