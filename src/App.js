@@ -4,6 +4,7 @@ import { RouterConfig } from './navigation/RouterConfig'
 import './App.css'
 
 import Footer from './components/footer'
+import GlobalSnackbar from './components/snackbar'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <RouterConfig />
           <Footer footer="Personal" />
         </BrowserRouter>
+        <GlobalSnackbar/>
       </div>
     </>
   )

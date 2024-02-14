@@ -139,6 +139,7 @@ class FormStore {
     this.post = true
   }
 
+  // TODO: Verificar essa função, parece que não está genérica
   fetchFormData = async () => {
     const id = localStorage.getItem('userId')
     if (isFunction(this.services.get) && !isEmpty(id)) {

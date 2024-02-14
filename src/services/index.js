@@ -9,71 +9,92 @@ const instance = axios.create({
   baseURL: apiUrl,
 })
 
-const get = async (endpoint, body) => {
-  try {
-    const { data } = await instance.get(endpoint)
+instance.interceptors.response.use(
+  (response) => {
+      return response
+    },
+    (error) => {
+      return error.response
+  }
+)
 
-    const { success } = data
+const get = async (endpoint, snackbar) => {
+  try {
+    const { data }  = await instance.get(endpoint)
+
+    const { success, message } = data
 
     if (!success) {
-      throw data
+      throw message
+    }
+
+    if(snackbar){
+      window.snackbar(message, 'success');
     }
 
     return data
   } catch (e) {
-    console.error(e)
-    return e
+    window.snackbar(e, 'error');
   }
 }
 
-const post = async (endpoint, body) => {
+const post = async (endpoint, body, snackbar) => {
   try {
-    const { data } = await instance.post(endpoint, body)
+    const { data }  = await instance.post(endpoint, body)
 
-    const { success } = data
+    const { success, message } = data
 
     if (!success) {
-      throw data
+      throw message
+    }
+
+    if(snackbar){
+      window.snackbar(message, 'success');
     }
 
     return data
   } catch (e) {
-    console.error(e.message)
-    return e
+    window.snackbar(e, 'error');
   }
 }
 
-const put = async (endpoint, body) => {
+const put = async (endpoint, body, snackbar) => {
   try {
-    const { data } = await instance.put(endpoint, body)
+    const { data }  = await instance.put(endpoint, body)
 
-    const { success } = data
+    const { success, message } = data
 
     if (!success) {
-      throw data
+      throw message
+    }
+
+    if(snackbar){
+      window.snackbar(message, 'success');
     }
 
     return data
   } catch (e) {
-    console.error(e)
-    return e
+    window.snackbar(e, 'error');
   }
 }
 
-const del = async (endpoint, body) => {
+const del = async (endpoint, snackbar) => {
   try {
-    const { data } = await instance.delete(endpoint)
+    const { data }  = await instance.get(endpoint)
 
-    const { success } = data
+    const { success, message } = data
 
     if (!success) {
-      throw data
+      throw message
+    }
+
+    if(snackbar){
+      window.snackbar(message, 'success');
     }
 
     return data
   } catch (e) {
-    console.error(e)
-    return e
+    window.snackbar(e, 'error');
   }
 }
 

@@ -1,5 +1,5 @@
 import FormStore from '../../../components/form/store/FormStore'
-import { getMetric, updateMetric } from '../../../services/Metric'
+import { getMetric } from '../../../services/Metric'
 
 class FormProfileMetricsStore extends FormStore {
   constructor() {

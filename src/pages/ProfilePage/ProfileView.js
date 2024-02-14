@@ -20,7 +20,7 @@ const ProfileForm = inject(
 
       fetchProfileData()
       fetchMetricsData()
-    }, [])
+    }, [formProfileMetricsStore, formProfileStore])
 
     const { getFormData: getProfileData } = formProfileStore
 
@@ -47,7 +47,7 @@ const ProfileForm = inject(
       <Grid container spacing={3} direction="column" alignItems="center">
       {/* Foto do perfil à esquerda */}
       <Grid item>
-        <Avatar alt="User Avatar" src="#"/>
+        <Avatar alt="User Avatar" src={foto}/>
       </Grid>
 
       {/* Cards com informações do usuário e métricas do corpo à direita */}

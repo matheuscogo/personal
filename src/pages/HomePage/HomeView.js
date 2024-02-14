@@ -8,6 +8,7 @@ import {
   CardContent,
   Typography,
   Paper,
+  Link,
 } from '@mui/material'
 import { observer, inject } from 'mobx-react'
 import { provider } from '../../components/store/provider'
@@ -70,7 +71,6 @@ const LoginForm = inject(
       try {
         setAsPost()
         await submit()
-
       } catch (error) {
         console.error('teste')
       }
@@ -82,7 +82,6 @@ const LoginForm = inject(
       try {
         setAsPost()
         await submit()
-
       } catch (error) {
         console.error('teste')
       }
@@ -142,7 +141,17 @@ const LoginForm = inject(
                       Entrar
                     </Button>
                   </Grid>
-
+                  <Grid item xs={12}>
+                    <Link href="forgot-password" rel="noopener noreferrer">
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                      >
+                        Esqueci a senha
+                      </Button>
+                    </Link>
+                  </Grid>
                   {/* Formulário de Cadastro */}
                   <Grid item xs={12}>
                     <Typography variant="h5" align="center" gutterBottom>
@@ -252,5 +261,5 @@ const LoginForm = inject(
     )
   })
 )
-// export default LoginForm
+
 export default provider({ formLoginStore, formSignUpStore })(LoginForm)
