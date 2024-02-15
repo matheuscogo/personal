@@ -8,7 +8,6 @@ import {
   CardContent,
   Typography,
   Paper,
-  Link,
 } from '@mui/material'
 import { observer, inject } from 'mobx-react'
 import { provider } from '../../components/store/provider'
@@ -17,6 +16,7 @@ import formLoginStore from './store/formLoginStore'
 import formSignUpStore from './store/formSignUpStore'
 
 import Password from '../../components/password'
+import { Link } from 'react-router-dom'
 
 const LoginForm = inject(
   'formLoginStore',
@@ -142,7 +142,7 @@ const LoginForm = inject(
                     </Button>
                   </Grid>
                   <Grid item xs={12}>
-                    <Link href="forgot-password" rel="noopener noreferrer">
+                    <Link to="forgot-password">
                       <Button
                         variant="contained"
                         color="primary"

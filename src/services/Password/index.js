@@ -2,7 +2,7 @@ import { post } from '../index'
 
 const resetPassword = async (controls) => {
     try {
-        const body = await post(`email/reset-password`, controls)
+        const body = await post(`email/reset-password`, controls, true)
     
         if (!body.success) {
           throw body.message

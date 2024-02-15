@@ -6,7 +6,7 @@ const login = async (user) => {
     // Se o login está sendo feito dnv, devemos limpar o login anterior
     setAuthorizationToken()
 
-    const body = await post('users/auth/login', user, true)
+    const body = await post('users/auth/login', user)
 
     if (!body.success) {
       throw body.message

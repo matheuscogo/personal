@@ -40,10 +40,10 @@ const get = async (endpoint, snackbar) => {
 
 const post = async (endpoint, body, snackbar) => {
   try {
-    const { data }  = await instance.post(endpoint, body)
+    const { data } = await instance.post(endpoint, body)
 
     const { success, message } = data
-
+    
     if (!success) {
       throw message
     }
