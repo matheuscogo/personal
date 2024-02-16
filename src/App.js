@@ -11,7 +11,7 @@ function App() {
       <div>
         <BrowserRouter>
           <RouterConfig />
-          <Footer footer="Personal" />
+          {/* <Footer footer="Personal" /> */}
         </BrowserRouter>
       </div>
     </>

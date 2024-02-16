@@ -1,10 +1,10 @@
 import React from 'react'
-import HomeView from './HomeView'
+import HomePageView from './HomePageView'
 
 export function HomeContainer() {
   return (
     <div>
-      <HomeView title="Pagina inicial" />
+      <HomePageView title="Pagina inicial" />
     </div>
   )
 }

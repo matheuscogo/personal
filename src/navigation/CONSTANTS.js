@@ -1,2 +1,5 @@
 export const HOME = '/'
 export const PROFILE = '/profile'
+export const SIGNUP = '/signup'
+export const SIGNIN = '/signin'
+export const HOMEPAGE = '/home'

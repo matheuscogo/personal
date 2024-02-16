@@ -4,8 +4,8 @@
     "react-hooks"
   ],  
   "rules": {
-    "semi": 0,
-    "comma-dangle": "off",
+    "semi": ["error", "never"],
+    "comma-dangle": ["error", "always-multiline"],
     "react-hooks/rules-of-hooks": "warn"
   }
 }
