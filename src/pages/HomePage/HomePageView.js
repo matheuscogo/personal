@@ -7,7 +7,7 @@ import SideBar from "../../components2/SideBar"
 function HomePageView() {
     return (
         <main className="box-home">
-            <SideBar />
+            <SideBar className="box-sidebar"/>
             <div className="content-home">
                 <NavMenu />
                 <SearchBar />
