@@ -5,7 +5,7 @@ function Students() {
     return (
         <div className="box-students">
             <h1>Alunos</h1>
-            <div>
+            <div className='main-students'>
                 {
                     students.map((student, index) => {
                         return (

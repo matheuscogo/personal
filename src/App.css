@@ -170,30 +170,37 @@ main {
 
 @media screen and (min-width: 1024px){
   .box-search {
-    width: 100%;
-    /* padding-left: 5%;
-    padding-right: 5%; */
+    padding-left: 100px;
+    padding-right: 100px;
   }
 
   .box-search > .icon {
     position: absolute;
-    left: 68px;
+    left: 110px;
     color: var(--soft-gray);
   }
 }
 
 
 /***************** STYLES DO COMPONENTE STUDENTS ****************/
+.main-students {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 .box-students > div {
   display: flex;
+  justify-content: start;
   flex-flow: row wrap;
-  gap: 28px;
+  gap: 22px;
   padding: 16px;
 }
 
 .box-students > h1 {
-  padding: 12px;
+  display: flex;
+  justify-content: start;
+  padding-left: 18px;
 }
 
 @media screen and (min-width: 1024px){
