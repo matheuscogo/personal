@@ -1,5 +1,5 @@
-import Logo from '../assets/Logo.png';
-import { MdAccountCircle } from "react-icons/md";
+import Logo from '../assets/Logo.png'
+import { MdAccountCircle } from "react-icons/md"
 
 
 function NavMenu() {
@@ -11,7 +11,7 @@ function NavMenu() {
                 <MdAccountCircle size={40} />
             </div>
         </nav>
-    );
+    )
 }
 
-export default NavMenu;
+export default NavMenu

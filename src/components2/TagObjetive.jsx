@@ -3,7 +3,7 @@ function TagObjetive() {
         <div>
             Enter
         </div>
-    );
+    )
 }
 
-export default TagObjetive;
+export default TagObjetive

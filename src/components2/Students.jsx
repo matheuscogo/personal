@@ -1,5 +1,5 @@
-import students from '../navigation/Students';
-import CardUser from './CardUser';
+import students from '../navigation/Students'
+import CardUser from './CardUser'
 
 function Students() {
     return (
@@ -14,12 +14,12 @@ function Students() {
                                     image={student.image}
                                     name={student.name}
                                 />
-                        );
+                        )
                     })
                 }
             </div>
         </div>
-    );
+    )
 }
 
-export default Students;
+export default Students

@@ -4,7 +4,7 @@ import ProfileView from './ProfileView'
 export function ProfileContainer() {
   return (
     <div>
-      <ProfileView title="Perfil do usuario" />
+      <ProfileView title="Perfil do usuário" />
     </div>
   )
 }

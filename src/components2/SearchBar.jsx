@@ -1,4 +1,4 @@
-import { IoSearch } from "react-icons/io5";
+import { IoSearch } from "react-icons/io5"
 
 function SearchBar({ onChange }) {
     return (
@@ -6,7 +6,7 @@ function SearchBar({ onChange }) {
             <IoSearch className="icon" size={28} />
             <input type="text" />
         </div>
-    );
+    )
 }
 
-export default SearchBar;
+export default SearchBar

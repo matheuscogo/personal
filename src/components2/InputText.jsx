@@ -3,7 +3,7 @@ function InputText({ placeholder, value, onChange }) {
         <div>
             Enter
         </div>
-    );
+    )
 }
 
-export default InputText;
+export default InputText

@@ -3,7 +3,7 @@ function CardData() {
         <div>
             Enter
         </div>
-    );
+    )
 }
 
-export default CardData;
+export default CardData

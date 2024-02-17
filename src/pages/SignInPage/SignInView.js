@@ -1,4 +1,4 @@
-import Logo from '../../assets/Logo.png';
+import Logo from '../../assets/Logo.png'
 
 function SignInView() {
     return (
@@ -13,7 +13,7 @@ function SignInView() {
                 <button>Entrar</button>
             </forms>
         </div>
-    );
+    )
 }
 
-export default SignInView;
+export default SignInView

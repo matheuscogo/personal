@@ -40,7 +40,7 @@ const ProfileForm = inject(
       PernaEsquerda, 
       pernaDireita, 
       panturrilhaEsquerda, 
-      panturrilhaDireita 
+      panturrilhaDireita,
     } = getProfileMetricsData
 
     return (

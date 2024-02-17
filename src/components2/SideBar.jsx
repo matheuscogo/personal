@@ -1,10 +1,10 @@
-import { GoHomeFill } from "react-icons/go";
-import { GoHome } from "react-icons/go";
-import { IoIosAddCircle } from "react-icons/io";
-import { IoMdExit } from "react-icons/io";
+import { GoHomeFill } from "react-icons/go"
+import { GoHome } from "react-icons/go"
+import { IoIosAddCircle } from "react-icons/io"
+import { IoMdExit } from "react-icons/io"
 
 function SideBar() {
-    const pathname = window.location.pathname;
+    const pathname = window.location.pathname
     return (
         <div className="box-sidebar">
             <div>
@@ -25,7 +25,7 @@ function SideBar() {
                 <span>Sair</span>
             </a>
         </div>
-    );
+    )
 }
 
-export default SideBar;
+export default SideBar

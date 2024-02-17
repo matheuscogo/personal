@@ -1,1 +1,1 @@
-export { ProfileContainer as default } from './ProfileContainer';
+export { ProfileContainer as default } from './ProfileContainer'

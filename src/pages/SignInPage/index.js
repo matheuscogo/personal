@@ -1,1 +1,1 @@
-export { SignInContainer as default } from './SignInContainer';
+export { SignInContainer as default } from './SignInContainer'

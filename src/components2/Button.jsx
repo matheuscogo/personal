@@ -3,7 +3,7 @@ function Button() {
         <div>
             Enter
         </div>
-    );
+    )
 }
 
-export default Button;
+export default Button

@@ -3,7 +3,7 @@ function CardStudents() {
         <div>
             Enter
         </div>
-    );
+    )
 }
 
-export default CardStudents;
+export default CardStudents

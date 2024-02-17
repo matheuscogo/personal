@@ -3,7 +3,7 @@ function CardMetrics() {
         <div>
             Enter
         </div>
-    );
+    )
 }
 
-export default CardMetrics;
+export default CardMetrics

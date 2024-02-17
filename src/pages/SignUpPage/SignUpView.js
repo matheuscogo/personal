@@ -10,7 +10,7 @@ function SignUpView() {
                 <button>Cadastrar</button>
             </forms>
         </div>
-    );
+    )
 }
 
-export default SignUpView;
+export default SignUpView
